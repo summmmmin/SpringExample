@@ -1,8 +1,10 @@
 package com.yedam.app;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,23 +31,29 @@ public class EmpMapperClient {
 	@Test
 	public void 전체조회() {
 		EmpVO param = new EmpVO();
-//		param.setDepartmentId("50");
-		param.setFirstName("e");
+		param.setDepartmentId("50,90");
+		
+		//param.setFirstName("e");
+		param.setOrderColumn("department_id, first_name");
 		List<EmpVO> list = empMapper.selectList(param);
+		int cnt = empMapper.selectCount(param);
 		for(EmpVO emp : list) {
 			System.out.println(emp);			
 		}
 		//assertEquals(list.get(0).getEmployeeId(), "100");
 	}
 	
-//	@Test
-//	public void 등록() {
-//		EmpVO vo = new EmpVO();
-//		vo.setFirstName("go");
-//		vo.setLastName("go");
-//		vo.setEmail("go@g");
-//		assertEquals(empMapper.insertOne(vo), 1);
-//	}
+	//@Test
+	public void 등록() {
+		EmpVO vo = new EmpVO();
+		vo.setFirstName("go");
+		vo.setLastName("go");
+		vo.setEmail("go@ggeg");
+		//assertEquals(empMapper.insertOne(vo), 1);
+		empMapper.insertEmp(vo);
+		//등록 후에 id를 사용하고자 할 경우 selectKey 이용
+		System.out.println(vo.getEmployeeId());
+	}
 	
 //	@Test
 //	public void 수정() {
@@ -54,4 +62,10 @@ public class EmpMapperClient {
 //		vo.setEmployeeId("281");
 //		assertEquals(empMapper.updateOne(vo), 1);
 //	}
+	
+	@Test
+	public void selectJobs() {
+		List<Map<String,Object>> list = empMapper.selectJobs();
+		assertNotNull(list);
+	}
 }

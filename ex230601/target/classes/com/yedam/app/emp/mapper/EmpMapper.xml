@@ -3,33 +3,75 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
-	<insert id="insertOne" parameterType="empVO">
-		INSERT INTO employees(EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, HIRE_DATE, JOB_ID)
-		VALUES (EMPLOYEES_SEQ.nextval , #{firstName} , #{lastName}, #{email} , sysdate , 'IT_PROG') 
-	</insert>
-	<update id="updateOne">
-		UPDATE employees
-		SET first_name = #{firstName}
-		WHERE employee_id = #{employeeId}
-	</update>
-	<select id="selectList" resultType="empVO">
-	  SELECT *
-		FROM employees
+	<sql id="empWhere">
 		<where>
 		<if test="departmentId != null and departmentId != '' ">
-		 and department_id = #{departmentId}		
+		  and department_id in
+		 <foreach open="(" close=")" collection="deptArr" item="dept" separator=",">
+		 	#{dept}
+		 </foreach>	
 		</if>
 		<if test="firstName != null and firstName != '' ">
 		 and first_name like '%' || #{firstName} || '%'		
 		</if>
 		</where>
-		ORDER BY employee_id
+	</sql>
+
+	<insert id="insertEmp" parameterType="empVO">
+		<selectKey keyProperty="employeeId" resultType="string" order="BEFORE">
+			select max(employee_id)+1 from employees
+		</selectKey>
+		INSERT INTO employees(EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, HIRE_DATE, department_id, JOB_ID)
+		VALUES (#{employeeId} , #{firstName} , #{lastName}, #{email} , #{hireDate} , #{departmentId}, #{jobId}) 
+	</insert>
+	<update id="updateEmp">
+		UPDATE employees
+		SET first_name = #{firstName}, LAST_NAME=#{lastName}, EMAIL = #{email}, HIRE_DATE=#{hireDate}, department_id=#{departmentId}, JOB_ID = #{jobId}
+		WHERE employee_id = #{employeeId}
+	</update>
+	<delete id="deleteEmp">
+		DELETE FROM employees
+		WHERE employee_id = #{empNo}
+	</delete>
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from employees
+		<include refid="empWhere"></include>
 	</select>
+	
+	<select id="selectList" resultType="empVO">
+	  SELECT *
+		FROM employees
+		<include refid="empWhere"></include>
+		<choose>
+			<when test="orderColumn != null and orderColumn != '' ">
+				order by ${orderColumn}
+			</when>
+			<otherwise>
+				ORDER BY employee_id			
+			</otherwise>
+		</choose>
+	</select>
+	
 	<select id="selectOne" parameterType="int" resultType="com.yedam.app.emp.service.EmpVO">
 		SELECT employee_id,
 			   first_name,
-			   last_name
+			   last_name, EMAIL, TO_CHAR(HIRE_DATE, 'yyyy-mm-dd') HIRE_DATE, department_id, JOB_ID
 		FROM employees
 		WHERE employee_id = #{empNo}
+	</select>
+	
+	<select id="selectJobs" resultType="map">
+	  SELECT JOB_ID "jobId",
+	  		 JOB_TITLE "jobTitle"
+	  FROM   JOBS
+	  ORDER BY JOB_TITLE
+	</select>
+	
+	<select id="selectDepts" resultType="map">
+	  SELECT DEPARTMENT_ID,
+	  		 DEPARTMENT_NAME 
+	  FROM   DEPARTMENTS
+	  ORDER BY DEPARTMENT_NAME 
 	</select>
 </mapper>  

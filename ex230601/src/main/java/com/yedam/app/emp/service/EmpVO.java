@@ -11,4 +11,9 @@ public class EmpVO {
 	String hireDate;
 	String jobId;
 	String departmentId;
+	String orderColumn;
+	
+	String[] getDeptArr() {
+		return departmentId.split(",");
+	}
 }
