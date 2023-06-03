@@ -11,12 +11,17 @@
 </head>
 <body>
   <h2>부서조회</h2>
-  <a href="">등록</a>
-  
+  <a href="deptInsert">등록</a>
+  <form action="deptList">
+    부서<input type="text" name="departmentId" value="${dept.departmentId }">
+    위치<input type="text" name="locationId" value="${dept.locationId }">
+    <button>검색</button>
+    <button type="reset">초기화</button>
+  </form>
   <c:forEach items="${deptList }" var="dept">
   	<div>${dept.departmentId } ${dept.departmentName }  ${dept.managerId } ${dept.locationId }
-  		 <a href="">수정</a>
-  	 	 <a href="">삭제</a></div>
+  		 <a href="deptUpdate?deptId=${dept.departmentId }">수정</a>
+  	</div>
   </c:forEach>
 </body>
 </html>

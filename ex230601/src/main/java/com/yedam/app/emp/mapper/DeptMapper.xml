@@ -3,35 +3,51 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.app.emp.mapper.DeptMapper">
-	<select id="deptList">
+	<sql id="deptWhere">
+		<where>
+		<if test="departmentId != null and departmentId != '' ">
+		  and department_id in
+		 <foreach open="(" close=")" collection="deptArr" item="dept" separator=",">
+		 	#{dept}
+		 </foreach>	
+		</if>
+		<if test="locationId != null and locationId != '' ">
+		 and location_id like '%' || #{locationId} || '%'		
+		</if>
+		</where>
+	</sql>
+	
+	<select id="deptList" parameterType="deptVO" resultType="deptVO">
 		SELECT *
 		FROM departments
+		<include refid="deptWhere"></include>
 		ORDER BY department_name
 	</select>
-	<select id="selectDept">
+	<select id="selectDept" resultType="deptVO">
 		SELECT department_id, department_name, manager_id, location_id
 		FROM departments
 		WHERE department_id = #{departmentId}
 	</select>
 	
-	<select id="selectManagers">
+	<select id="selectManagers" resultType="map">
 		SELECT employee_id, first_name
 		FROM employees
 		ORDER BY employee_id
 	</select>
-	<select id="selectLocations">
+	<select id="selectLocations" resultType="map">
 		SELECT LOCATION_ID, STREET_ADDRESS, CITY
 		FROM locations
 		ORDER BY location_id
 	</select>
 	
-	<insert id="insertDept">
+	<insert id="insertDept" parameterType="deptVO">
 		INSERT INTO departments(department_id, department_name, manager_id, location_id)
 		VALUES (departments_seq.nextval, #{departmentName}, #{managerId}, #{locationId} )
 	</insert>
-	<update id="updateDept">
+	<update id="updateDept" parameterType="deptVO">
 		UPDATE departments
-		SET department_id=#{departmentId}, department_name=#{departmentName}, manager_id=#{managerId}, location_id=#{locationId}
+		SET department_name=#{departmentName}, manager_id=#{managerId}, location_id=#{locationId}
+		WHERE department_id=#{departmentId}
 	</update>
 	
 </mapper>

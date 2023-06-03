@@ -8,4 +8,7 @@ public class DeptVO {
 	String departmentName;
 	String managerId;
 	String locationId;
+	String[] getDeptArr() {
+		return departmentId.split(",");
+	}
 }
