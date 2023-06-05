@@ -17,26 +17,26 @@ public class DeptController {
 	@Autowired
 	DeptMapper deptMapper;
 
-	@GetMapping("deptList")
+	//@GetMapping("deptList")
 	public String deptList(Model model, @ModelAttribute("dept") DeptVO vo) {
 		model.addAttribute("deptList", deptMapper.deptList(vo));
 		return "dept/deptList";
 	}
 
-	@GetMapping("deptInsert")
+	//@GetMapping("deptInsert")
 	public String deptInsertForm(Model model) {
 		model.addAttribute("locations", deptMapper.selectLocations());
 		model.addAttribute("managers", deptMapper.selectManagers());
 		return "dept/deptInsert";
 	}
 
-	@PostMapping("deptInsert")
+	//@PostMapping("deptInsert")
 	public String deptInsert(DeptVO vo) {
 		deptMapper.insertDept(vo);
 		return "redirect:deptList";
 	}
 	
-	@GetMapping("deptUpdate")
+	//@GetMapping("deptUpdate")
 	public String deptUpdateForm(Model model, int deptId) {
 		model.addAttribute("dept", deptMapper.selectDept(deptId));
 		model.addAttribute("locations", deptMapper.selectLocations());
@@ -44,7 +44,7 @@ public class DeptController {
 		return "dept/deptUpdate";
 	}
 
-	@PostMapping("deptUpdate")
+	//@PostMapping("deptUpdate")
 	public String deptUpdate(DeptVO vo) {
 		deptMapper.updateDept(vo);
 		return "redirect:deptList";
