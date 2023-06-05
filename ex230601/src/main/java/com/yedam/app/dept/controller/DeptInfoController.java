@@ -69,7 +69,7 @@ public class DeptInfoController {
 		return "redirect:deptList";
 	}
 	// 수정 - 기능		: POST
-	@PostMapping("deptUpdate")	//@RequestBody : JSON 포맷을 사용하는 경우
+	//@PostMapping("deptUpdate")	//@RequestBody : JSON 포맷을 사용하는 경우
 								// ->content-type : 'application/json'
 	/*
 	 * public String deptUpdate(@RequestBody List<DeptInfoVO> deptVO,
@@ -77,7 +77,7 @@ public class DeptInfoController {
 	 * deptService.updateDeptList(deptVO); rtt.addFlashAttribute("updateRes", map);
 	 * return "redirect:deptInfo?departmentId="+deptVO.get(0).getDepartmentId(); }
 	 */
-	@ResponseBody
+	//@ResponseBody
 	public Map<String, Object> deptUpdate(@RequestBody List<DeptInfoVO> deptVO) {
 		return deptService.updateDeptList(deptVO);
 	}
