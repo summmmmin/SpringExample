@@ -262,7 +262,7 @@
                 class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"
               >
                 <li>
-                  <a href="#" class="nav-link text-secondary">
+                  <a href="${pageContext.request.contextPath}" class="nav-link text-secondary">
                     <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                       <use xlink:href="#home" />
                     </svg>
@@ -270,7 +270,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="nav-link text-white">
+                  <a href="boardList" class="nav-link text-white">
                     <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                       <use xlink:href="#speedometer2" />
                     </svg>
@@ -278,7 +278,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="nav-link text-white">
+                  <a href="boardInsert" class="nav-link text-white">
                     <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                       <use xlink:href="#table" />
                     </svg>
