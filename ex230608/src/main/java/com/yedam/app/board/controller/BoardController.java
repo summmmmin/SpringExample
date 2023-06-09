@@ -1,11 +1,15 @@
 package com.yedam.app.board.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.app.board.service.BoardService;
@@ -20,7 +24,6 @@ public class BoardController {
 	@GetMapping("boardList")
 	public String getBoardList(Model model) {
 		model.addAttribute("boardList", boardService.getBoardList());
-		
 		return "board/boardList";
 	}
 	
@@ -59,15 +62,22 @@ public class BoardController {
 	
 	// 수정 - 처리 : URI - boardUpdate, RETURN - 성공여부만 반환
 	@PostMapping("boardUpdate")
-	public String boardUpdate(BoardVO boardVO) {
-		
-		boardService.updateBoardInfo(boardVO);
-		return "redirect:boardList";
+	@ResponseBody
+	public Map<String, Object> boardUpdate(BoardVO boardVO) {
+		boolean result = false;
+		int boardNo = boardService.updateBoardInfo(boardVO);
+		if(boardNo > -1) {
+			result = true;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", result);
+		map.put("board_no", boardNo);
+		return map;
 	}
 	
 	// 삭제 : URI - boardDelete, RETURN - 전체조회 다시 호출
 	@GetMapping("boardDelete")
-	public String boardDelete(@RequestParam int bNo) {
+	public String boardDelete(@RequestParam(required = false, defaultValue= "0", name="bno") int bNo) {
 		boardService.deleteBoardInfo(bNo);
 		return "redirect:boardList";
 	}

@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
     <title>게시글 수정</title>
   </head>
   <body>
-    <form name="updateForm" action="boardUpdate" method="POST">
+    <form name="updateForm" action="boardUpdate" method="POST" onsubmit="return false;">
       <div>
         <h3>게시글 수정</h3>
       </div>
@@ -41,8 +41,28 @@ pageEncoding="UTF-8"%>
           </td>
         </tr>
       </table>
-      <button type="submit">수정완료</button>
-      <button type="button" onclick="location.href='boardInfo?bNo=${board.bno}'">취소</button>
+      <button type="submit" class="btn btn-primary">수정완료</button>
+      <button type="button" class="btn" onclick="location.href='boardInfo?bNo=${board.bno}'">취소</button>
     </form>
+    <script type="text/javascript">
+    	function updateAjax(e){
+    		let boardData = new FormData(document.querySelector("[name='updateForm']"));
+    		console.log(boardData.data)
+    		fetch(updateForm.action, {
+    			method:'post',
+    			body:boardData
+    		})
+    		.then(response => response.json())
+    		.then(data => {
+    			let message = '결과 : ' + data.result
+    						   +',게시글 번호 : '+ data['board_no']`;
+    		 	alert(message);
+    		})		
+    		.catch(err => console.log(err));
+    	}
+    	
+    	document.querySelector('button[type="submit"]')
+    			.addEventListener('click', updateAjax);
+    </script>
   </body>
 </html>

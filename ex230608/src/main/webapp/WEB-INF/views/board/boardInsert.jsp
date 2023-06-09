@@ -32,5 +32,33 @@ pageEncoding="UTF-8"%>
       <button type="submit">등록</button>
       <button type="button" onclick="location.href=boardList">목록</button>
     </form>
+    
+    <script type="text/javascript">
+    document.querySelector("form[name='insertForm']")
+    		.addEventListener('submit', function(e){
+    			e.preventDefault();
+    			let title = document.getElementsByName('title')[0];
+    			let writer = document.getElementsByName('writer')[0];
+    			let contents = document.getElementsByName('contents')[0];
+    			
+    			if(title.value == ''){
+    				alert('제목이 입력되지 않았다');
+    				title.focus();
+    				return;
+    			}
+    			if(writer.value == ''){
+    				alert('작성자 입력되지 않았다');
+    				writer.focus();
+    				return;
+    			}
+    			if(contents.value == ''){
+    				alert('내용이 입력되지 않았다');
+    				contents.focus();
+    				return;
+    			}
+    			
+    			insertForm.submit();
+    		})
+    </script>
   </body>
 </html>

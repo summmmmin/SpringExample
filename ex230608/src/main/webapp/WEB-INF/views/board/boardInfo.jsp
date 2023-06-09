@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -28,14 +29,22 @@ pageEncoding="UTF-8"%>
       </tr>
       <tr>
         <th>첨부파일</th>
-        <td>${board.image}</td>
+        <c:choose>
+        	<c:when test="${not empty board.image }">
+		        <td><img src='<c:url value="/resources/image/${board.image}"/>'/></td>	
+        	</c:when>
+        	<c:otherwise>
+        		<td>파일없다</td>
+        	</c:otherwise>
+        </c:choose>
       </tr>
       <tr>
         <th>일자</th>
         <td>${board.updatedate}</td>
       </tr>
     </table>
-    <button type="button" onclick="location.href='boardUpdate?bNo=${board.bno}'">수정</button>
-    <button type="button" onclick="location.href='boardDelete?bNo=${board.bno}'">삭제</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='boardUpdate?bNo=${board.bno}'">수정</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='boardDelete?bNo=${board.bno}'">삭제</button>
+    
   </body>
 </html>
