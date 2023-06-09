@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
       <button type="button" onclick="location.href=boardList">목록</button>
     </form>
     
-    <script type="text/javascript">
+    <script>
     document.querySelector("form[name='insertForm']")
     		.addEventListener('submit', function(e){
     			e.preventDefault();

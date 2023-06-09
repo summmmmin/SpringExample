@@ -270,27 +270,28 @@
                   </a>
                 </li>
                 <li>
-                  <a href="boardList" class="nav-link text-white">
-                    <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                      <use xlink:href="#speedometer2" />
-                    </svg>
-                    Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a href="boardInsert" class="nav-link text-white">
-                    <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                      <use xlink:href="#table" />
-                    </svg>
-                    Orders
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link text-white">
+                  <a href="${pageContext.request.contextPath}/boardList" class="nav-link text-white">
                     <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                       <use xlink:href="#grid" />
                     </svg>
-                    Products
+                    List
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="${pageContext.request.contextPath}/boardInsert" class="nav-link text-white">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                      <use xlink:href="#table" />
+                    </svg>
+                    Insert
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="nav-link text-white">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                      <use xlink:href="#speedometer2" />
+                    </svg>
+                    
                   </a>
                 </li>
                 <li>

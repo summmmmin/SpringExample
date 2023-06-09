@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,17 +38,18 @@ pageEncoding="UTF-8"%>
         <tr>
           <th>수정날짜</th>
           <td>
-            <input type="date" name="updatedate" value="${board.updatedate}" />
+            <input type="date" name="updatedate" 
+            value='<fmt:formatDate value="${board.updatedate}" pattern="yyyy-MM-dd"/>' />
           </td>
         </tr>
       </table>
       <button type="submit" class="btn btn-primary">수정완료</button>
       <button type="button" class="btn" onclick="location.href='boardInfo?bNo=${board.bno}'">취소</button>
     </form>
-    <script type="text/javascript">
+    <script>
     	function updateAjax(e){
     		let boardData = new FormData(document.querySelector("[name='updateForm']"));
-    		console.log(boardData.data)
+
     		fetch(updateForm.action, {
     			method:'post',
     			body:boardData
@@ -55,7 +57,7 @@ pageEncoding="UTF-8"%>
     		.then(response => response.json())
     		.then(data => {
     			let message = '결과 : ' + data.result
-    						   +',게시글 번호 : '+ data['board_no']`;
+    						   +',게시글 번호 : '+ data['board_no'];
     		 	alert(message);
     		})		
     		.catch(err => console.log(err));

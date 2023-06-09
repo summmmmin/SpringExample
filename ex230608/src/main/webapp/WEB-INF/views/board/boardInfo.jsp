@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -40,7 +41,7 @@ pageEncoding="UTF-8"%>
       </tr>
       <tr>
         <th>일자</th>
-        <td>${board.updatedate}</td>
+        <td><fmt:formatDate value="${board.updatedate}" pattern="yyyy-MM-dd"/></td>
       </tr>
     </table>
     <button type="button" class="btn btn-primary" onclick="location.href='boardUpdate?bNo=${board.bno}'">수정</button>
