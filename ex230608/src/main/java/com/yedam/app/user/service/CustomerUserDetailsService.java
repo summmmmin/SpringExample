@@ -1,15 +1,12 @@
 package com.yedam.app.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import com.yedam.app.user.mapper.UserMapper;
 
-@Service("userDetailService")
 public class CustomerUserDetailsService implements UserDetailsService {
 	
 	@Autowired
@@ -29,7 +26,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 		// 권한 지정
 		/*
 		 * List<GrantedAuthority> auth = new ArrayList<>(); auth.add(new
-		 * SimpleGrantedAuthority(userVO.getRole()));
+		 * auth.add(new SimpleGrantedAuthority(userVO.getRole())));
 		 */
 		return userVO;
 	}
