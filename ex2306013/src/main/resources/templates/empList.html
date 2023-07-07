@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>전체 사원 조회</title>
+<script th:inline="javascript">
+	function getCtx(){
+		return /*[[${#httpServletRequest.getContextPath()}]]*/;
+	}
+</script>
+</head>
+<body>
+	<div>
+		<button type="button" th:onclick="|location.href='@{/empInsert}'|" th:text='등록' />
+		<table>
+			<thead>
+				<tr>
+					<th>employee_id</th>
+					<th>first_name</th>
+					<th>job_ic</th>
+					<th>hire_date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="empInfo, status : ${empList}">
+					<tr th:id="${status.index}"
+						th:onclick="|location.href='@{/empInfo(employeeId=${empInfo.employeeId})}'|">
+						<td th:text="${empInfo.employeeId}" />
+						<td th:text="${empInfo.firstName}" />
+						<td>[[${empInfo.jobId}]]</td>
+						<td>[[${#dates.format(empInfo.hireDate, 'yyyy년 MM월 dd일')}]]</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
