@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="~{user/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.oddbg {background-color: bisque;}
+</style>
+</head>
+<body>
+  <div layout:fragment="content">
+	<p>전체사원수 : [[${#lists.size(empList)}]]</p>
+	<p>전체사원수 : <span th:text="${#lists.size(empList)}"></span></p>
+	<p th:text="${'Welcome to our <b>fantastic</b> grocery store!'}">Welcome</p>
+	<p th:utext="${'Welcome to our <b>fantastic</b> grocery store!'}">Welcome</p>
+	
+	<table>
+		<thead>
+			<tr>
+				<td>사번</td>
+				<td>이름</td>
+				<td>부서</td>
+				<td>입사일자</td>
+				<td>급여</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="emp, es: ${empList}" th:class="${es.odd}?oddbg:_">
+				<td>
+					[[${es.count}]]  
+					<a th:href="@{empInfo(employeeId=${emp.employeeId},name=${emp.firstName})}">[[${emp.employeeId}]]</a>
+					<a th:href="@{empInfo/{id}/{name}(id=${emp.employeeId},name=${emp.firstName})}">[[${emp.employeeId}]]</a>
+				</td>
+				<td th:text="${emp.firstName} + ' ' + ${emp.lastName}">king smith</td>
+				<td th:text="${emp.departmentId}">개발</td>
+				<td th:text="${#dates.format(emp.hireDate, 'MM/yyyy HH:mm')}">2020/12/01</td>
+				<td th:text="${#numbers.formatCurrency(emp.salary==null?0:emp.salary)}">30000</td>
+			</tr>
+		</tbody>
+	</table>
+  </div>
+</body>
+</html>
