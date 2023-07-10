@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>사원 수정</title>
+</head>
+<body>
+	<!-- <form th:action="@{/empUpdate}" method="POST" th:object="${empVO}" id="frm"> -->
+	<form th:object="${empVO}" id="frm" name="frm">
+		<div>
+			<label id="employeeId">사원번호</label>
+			<input type="text" id="employeeId" th:field="*{employeeId}">
+		</div>
+		<div>
+			<label id="name">이름</label>
+			<input type="text" id="name" th:field="*{lastName}">
+		</div>
+		<div>
+			<label id="email">이메일</label>
+			<input type="text" id="email" th:field="*{email}">
+		</div>
+		<div>
+			<label id="hireDate">입사일</label>
+			<input type="text" id="hireDate" th:field="*{hireDate}">
+		</div>
+		<div>
+			<label id="job">업무</label>
+			<input type="text" id="job" th:field="*{jobId}">
+		</div>
+		<div>
+			<!-- <button type="submit" id="save">등록</button> -->
+			<button type="button" id="save">등록</button>
+			<button type="reset">취소</button>
+		</div>
+	</form>
+	<script>
+/* 		$("#save").on("click", function(){
+			$.ajax("employees",{
+				method : "put",
+				contentType : "application/json",
+				data : JSON.stringify($("#frm").serializeObject())
+			//data: $("#frm").serialize()
+			}).done(result =>{
+				alert("수정완료")
+			})
+		}) */
+		
+		$("#save").on("click", function(){
+			fetch("employees",{
+				method : "put",
+				headers:{
+					'Content-Type' : 'application/json',
+					//'Content-Type' : "application/x-www-form-urlencoded",
+				},
+				body : JSON.stringify($("#frm").serializeObject()),
+				//body : new FormData(frm)
+			}).done(result =>{
+				alert("수정완료")
+			})
+		})
+	</script>
+</body>
+</html>

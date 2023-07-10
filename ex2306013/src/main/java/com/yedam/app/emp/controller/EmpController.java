@@ -39,5 +39,4 @@ public class EmpController {
 		empService.insertEmpInfo(empVO);
 		return "redirect:empList";
 	}
-	
 }

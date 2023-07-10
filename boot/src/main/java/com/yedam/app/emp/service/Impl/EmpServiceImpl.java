@@ -29,4 +29,9 @@ public class EmpServiceImpl implements EmpService {
 		return empMapper.insertEmpInfo(empVO);
 	}
 
+	@Override
+	public int updateEmpInfo(EmpVO empVO) {
+		return empMapper.updateEmpInfo(empVO);
+	}
+
 }

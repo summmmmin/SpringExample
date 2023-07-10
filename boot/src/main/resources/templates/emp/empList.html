@@ -10,6 +10,8 @@
 </head>
 <body>
   <div layout:fragment="content">
+  	<div id="empInsertDiv"></div>
+  	
 	<p>전체사원수 : [[${#lists.size(empList)}]]</p>
 	<p>전체사원수 : <span th:text="${#lists.size(empList)}"></span></p>
 	<p th:text="${'Welcome to our <b>fantastic</b> grocery store!'}">Welcome</p>
@@ -29,7 +31,7 @@
 			<tr th:each="emp, es: ${empList}" th:class="${es.odd}?oddbg:_">
 				<td>
 					[[${es.count}]]  
-					<a th:href="@{empInfo(employeeId=${emp.employeeId},name=${emp.firstName})}">[[${emp.employeeId}]]</a>
+					<a th:href="|javascript:empUpdate(${emp.employeeId})|">[[${emp.employeeId}]]</a>
 					<a th:href="@{empInfo/{id}/{name}(id=${emp.employeeId},name=${emp.firstName})}">[[${emp.employeeId}]]</a>
 				</td>
 				<td th:text="${emp.firstName} + ' ' + ${emp.lastName}">king smith</td>
@@ -39,6 +41,31 @@
 			</tr>
 		</tbody>
 	</table>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script src="/json.min.js"></script>
+	<script>
+		//$("#empInsertDiv").load("/empInsert",null, function(){alert('load 후 실행')})
+		
+		//dataType ajax함수에서 자동 파싱 가능 설정하려면 {dataType:"json"}
+		//html
+		$.ajax("/empInsert")
+		.done(function(result){
+			$("#empInsertDiv").html(result);
+		})
+		//json
+		/* $.ajax("employees/100")
+		.done(function(result){
+			console.log(typeof result)
+			$("#empInsertDiv").html(JSON.stringify(result));
+		}) */
+		
+		function empUpdate(id){
+			$.ajax(`/empUpdate?employeeId=${id}`, {dataType:"html"})
+			.done(function(result){
+				$("#empInsertDiv").html(result);
+			})
+		}
+	</script>
   </div>
 </body>
 </html>

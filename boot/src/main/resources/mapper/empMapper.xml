@@ -46,4 +46,10 @@
 				,#{jobId}
 				)
 	</insert>
+	<!-- 수정 -->
+	<update id="updateEmpInfo" parameterType="EmpVO">
+		UPDATE employees
+		SET		last_name =#{lastName} , email =#{email} , hire_date=#{hireDate} , job_id=#{jobId}
+		WHERE	employee_id=#{employeeId}
+	</update>
 </mapper>

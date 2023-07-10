@@ -9,4 +9,6 @@ public interface EmpService {
 	public EmpVO getEmpInfo(EmpVO empVO);
 	// 등록
 	public int insertEmpInfo(EmpVO empVO);
+	// 수정
+	public int updateEmpInfo(EmpVO empVO);
 }

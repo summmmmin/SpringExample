@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.yedam.app.emp.service.EmpService;
 import com.yedam.app.emp.service.EmpVO;
@@ -33,16 +35,30 @@ public class EmpController {
 	}
 	// 등록 페이지
 	@GetMapping("empInsert")
-	public void empInsertForm(Model model) {
+	public String empInsertForm(Model model) {
 		model.addAttribute("empVO", new EmpVO());
+		return "emp/empInsert";
 	}
 	
 	// 등록 처리
 	@PostMapping("empInsert")
 	public String empInsert(EmpVO empVO) {
 		empService.insertEmpInfo(empVO);
-		return "redirect:emp/empList";
+		return "redirect:empList";
 	}
+	// 등록 페이지
+	@GetMapping("empUpdate")
+	public String empUpdateForm(Model model,EmpVO vo) {
+		model.addAttribute("empVO", empService.getEmpInfo(vo));
+		return "emp/empUpdate";
+	}
+	
+	// 등록 처리
+	//@PostMapping("empUpdate")
+//	public String empUpdate(EmpVO empVO) {
+//		empService.updateEmpInfo(empVO);
+//		return "redirect:empList";
+//	}
 	
 	@GetMapping("test")
 	public String test() {
